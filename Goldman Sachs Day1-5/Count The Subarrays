@@ -1,1 +1,40 @@
+import java.util.Scanner;
 
+class CountSubArrayProductLessThanK {
+	public int countSubArrayProductLessThanK(long a[], long n, long k) {
+		int start = 0, end = 0;
+		int count = 0;
+		long prod = a[0];
+		while (start < n && end < n) {
+			if (prod < k) {
+				end++;
+				if (end >= start) {
+					count += end - start;
+				}
+				if (end < n) {
+					prod = prod * a[end];
+				}
+			} else {
+				prod = prod / a[start];
+				start++;
+			}
+		}
+		return count;
+	}
+}
+public class CountTheSubArray {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+
+		long n = scan.nextLong();
+
+		long k = scan.nextLong();
+		long[] arr = new long[(int) n];
+		for (int i = 0; i < n; i++) {
+			arr[i] = scan.nextLong();
+		}
+		scan.close();
+		CountSubArrayProductLessThanK solution = new CountSubArrayProductLessThanK();
+		System.out.println(solution.countSubArrayProductLessThanK(arr, n, k));
+	}
+}
